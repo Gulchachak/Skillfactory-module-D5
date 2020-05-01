@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect, render
-from p_library.models import Book, Author, Redaction
-from p_library.forms import AuthorForm, BookForm
+from p_library.models import Book, Author, Redaction, Friend
+from p_library.forms import AuthorForm, BookForm, FriendForm
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from django.forms import formset_factory  
@@ -14,10 +14,19 @@ class AuthorEdit(CreateView):
     success_url = reverse_lazy('p_library:author_list')  
     template_name = 'author_edit.html'  
   
-  
-class AuthorList(ListView):  
-    model = Author  
+class AuthorList(ListView):
+    model = Author
     template_name = 'author_list.html'
+
+class FriendCreate(CreateView):
+    form_class = FriendForm
+    model = Friend
+    success_url = reverse_lazy('p_library:friend_list')
+    template_name = 'friend_create.html'
+
+class FriendList(ListView):
+    model = Friend
+    template_name = 'friend_list.html'
 
 def books_list(request):
 	books = Book.objects.all()

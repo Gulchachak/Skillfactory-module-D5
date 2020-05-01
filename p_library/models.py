@@ -40,3 +40,10 @@ class Inspiration(models.Model):
         on_delete=models.CASCADE,
         related_name="inspired_works",
     )
+
+class Friend(models.Model):  
+    friend_name = models.CharField(max_length=60) 
+    friend_book = models.ForeignKey('Book', on_delete=models.CASCADE) 
+  
+    def __str__(self):  
+        return self.friend_name
